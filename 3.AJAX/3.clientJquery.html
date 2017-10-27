@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h1>员工查询</h1>
+	<label for="number">请输入员工编号：</label>
+	<input type="text" id="number">
+	<input type="submit" value="查询" id="select_btn">
+	<br>
+	<div id="searchRes"></div>
+
+	<h1>员工新建</h1>
+	<label for="name">请输入员工姓名：</label>
+	<input type="text" id="name"><br>
+
+	<label for="id">请输入员工编号：</label>
+	<input type="text" id="id"><br>
+
+	<label for="sex">请输入员工性别：</label>
+	<select name="sex" id="sex">
+		<option value="female">女</option>
+		<option value="male">男</option>
+	</select><br>
+
+	<label for="job">请输入员工职位：</label>
+	<input type="text" id="job">
+	<input type="submit" value="保存" id="add_btn">
+	<br>
+	<div id="addRes"></div>
+	
+	<script src="../jquery.js"></script>
+	<script>
+		var sBtn = $("#select_btn");
+		var aBtn = $("#add_btn");
+
+		sBtn.on("click",function(){
+			$.ajax({ 
+			    type: "GET", 	
+				url: "3.serverJquery.php?number=" + $("#number").val(),
+				//url: "http://127.0.0.1:8080/ajaxdemo/serverjson2.php?number=" + $("#number").val(),
+				dataType: "json",
+				success: function(data) {
+					if (data.success) { 
+						$("#searchRes").html(data.msg);
+					} else {
+						$("#searchRes").html("出现错误：" + data.msg);
+					}  
+				},
+				error: function(jqXHR){     
+				   alert("发生错误：" + jqXHR.status);  
+				},     
+			});			
+		});
+
+		
+		aBtn.on("click",function(){
+			$.ajax({
+				type:"POST",
+				url:"3.serverJquery.php",
+				data:{
+					"name": $("#staffName").val(), 
+					"number": $("#staffNumber").val(), 
+					"sex": $("#staffSex").val(), 
+					"job": $("#staffJob").val()
+				},
+				dataType:"json",
+				success:function(data){
+					if (data.success) { 
+						$("#createRes").html(data.msg);
+					} else {
+						$("#createRes").html("出现错误：" + data.msg);
+					}  
+				},
+				error:function(jqXHR){
+					 alert("发生错误：" + jqXHR.status);  
+				}
+			});
+
+			
+		});
+			
+	</script>
+</body>
+</html>

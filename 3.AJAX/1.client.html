@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h1>员工查询</h1>
+	<label for="number">请输入员工编号：</label>
+	<input type="text" id="number">
+	<input type="submit" value="查询" id="select_btn">
+	<br>
+	<div id="searchRes"></div>
+
+	<h1>员工新建</h1>
+	<label for="name">请输入员工姓名：</label>
+	<input type="text" id="name"><br>
+
+	<label for="id">请输入员工编号：</label>
+	<input type="text" id="id"><br>
+
+	<label for="sex">请输入员工性别：</label>
+	<select name="sex" id="sex">
+		<option value="female">女</option>
+		<option value="male">男</option>
+	</select><br>
+
+	<label for="job">请输入员工职位：</label>
+	<input type="text" id="job">
+	<input type="submit" value="保存" id="add_btn">
+	<br>
+	<div id="addRes"></div>
+
+	<script>
+		var sBtn = document.getElementById("select_btn");
+		var aBtn = document.getElementById("add_btn");
+
+		function XHR(){
+			var request;
+			if(window.XMLHttpRequest){
+			       request = new XMLHttpRequest();
+			}else{
+			      request = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			return request;
+		}
+
+
+		sBtn.onclick = function(){
+			var number = document.getElementById("number").value;
+			var request = XHR();
+
+			var url = "server.php?number="+number;
+			request.open("GET",url);
+			request.send();
+
+			request.onreadystatechange = function(){
+				if(request.readyState === 4 ){
+					if(request.status === 200){
+						document.getElementById("searchRes").innerHTML = request.responseText;
+					}else{
+						document.getElementById("searchRes").innerHTML = "发生错误" + request.status;
+					}	
+				};
+			};
+		};
+
+		aBtn.onclick = function(){
+			var name = document.getElementById("name").value;
+			var id = document.getElementById("id").value;
+			var sex = document.getElementById("sex").value;
+			var job = document.getElementById("job").value;
+
+			var request = XHR();
+			var data = "name=" + name + "&id=" + id + "&sex=" + sex + "&job=" + job;
+			request.open("POST","server.php");
+			request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			request.send(data);
+
+			request.onreadystatechange = function(){
+				if(request.readyState === 4 && request.status===200){
+					document.getElementById("addRes").innerHTML = request.responseText;
+				}else{
+					document.getElementById("addRes").innerHTML = "发生错误"+request.status;
+				}
+			};
+		};
+	</script>
+</body>
+</html>
