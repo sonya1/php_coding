@@ -50,7 +50,7 @@
 			var number = document.getElementById("number").value;
 			var request = XHR();
 
-			var url = "serverJson.php?number="+number;
+			var url = "2.serverJson.php?number="+number;
 			request.open("GET",url);
 			request.send();
 
@@ -80,7 +80,7 @@
 
 			var request = XHR();
 			var data = "name=" + name + "&id=" + id + "&sex=" + sex + "&job=" + job;
-			request.open("POST","serverJson.php");
+			request.open("POST","2.serverJson.php");
 			request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			request.send(data);
 

@@ -1,6 +1,6 @@
 <?php
 //设置页面内容是html编码格式是utf-8
-header("Content-Type: text/plain;charset=utf-8"); 
+header("Content-Type: text/json;charset=utf-8"); 
 /*header('Access-Control-Allow-Origin:*');
 header('Access-Control-Allow-Methods:POST,GET');
 header('Access-Control-Allow-Credentials:true'); 
@@ -31,6 +31,8 @@ function search(){
 	//检查是否有员工编号的参数
 	//isset检测变量是否设置；empty判断值为否为空
 	//超全局变量 $_GET 和 $_POST 用于收集表单数据
+	$jsonp = $_GET["callback"];
+
 	if (!isset($_GET["number"]) || empty($_GET["number"])) {
 		echo '{"success":false,"msg":"参数错误"}';
 		return;
@@ -40,15 +42,16 @@ function search(){
 	global $staff;
 	//获取number参数
 	$number = $_GET["number"];
-	$result = '{"success":false,"msg":"没有找到员工。"}';
+	//$result = '{"success":false,"msg":"没有找到员工。"}';
+	$result = $jsonp.'({"success":false,"msg":"没有找到员工。"})';
 	
 	//遍历$staff多维数组，查找key值为number的员工是否存在，如果存在，则修改返回结果
 	foreach ($staff as $value) {
 		if ($value["number"] == $number) {
-			$result = '{"success":true,"msg":"找到员工：员工编号：' . $value["number"] . 
+			$result = $jsonp.'({"success":true,"msg":"找到员工：员工编号：' . $value["number"] . 
 							'，员工姓名：' . $value["name"] . 
 							'，员工性别：' . $value["sex"] . 
-							'，员工职位：' . $value["job"] . '"}';
+							'，员工职位：' . $value["job"] . '"})';
 			break;
 		}
 	}

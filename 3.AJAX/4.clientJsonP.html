@@ -42,7 +42,7 @@
 		sBtn.on("click",function(){
 			$.ajax({ 
 			    type: "GET", 	
-				url: "3.serverJquery.php?number=" + $("#number").val(),
+				url: "http://127.0.0.1/php_coding/3.AJAX/4.serverJsonP.php?number=" + $("#number").val(),
 				//url: "http://127.0.0.1:8080/ajaxdemo/serverjson2.php?number=" + $("#number").val(),
 				dataType: "json",
 				success: function(data) {
@@ -61,14 +61,15 @@
 		aBtn.click(function(){ 
 				$.ajax({ 
 				    type: "POST", 	
-					url: "3.serverJquery.php",
+					url: "http://127.0.0.1/php_coding/3.AJAX/4.serverJsonP.php",
 					data: {
 						name: $("#name").val(), 
 						number: $("#id").val(), 
 						sex: $("#sex").val(), 
 						job: $("#job").val()
 					},
-					dataType: "json",
+					dataType: "jsonp",
+					jsonp:"callback",
 					success: function(data){
 						if (data.success) { 
 							$("#addRes").html(data.msg);

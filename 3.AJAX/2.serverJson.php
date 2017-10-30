@@ -1,9 +1,9 @@
 <?php
-	//header("Content-type:text/plain;charset=utf-8");
-	header('Access-Control-Allow-Origin:*');
+	header("Content-type:text/plain;charset=utf-8");
+	/*header('Access-Control-Allow-Origin:*');
 	header('Access-Control-Allow-Methods:POST,GET');
 	header('Access-Control-Allow-Credentials:true'); 
-	header("Content-Type: application/json;charset=utf-8"); 
+	header("Content-Type: application/json;charset=utf-8"); */
 
 	$staff = array(
 		array("name" => "洪七", "number" => "101", "sex" => "男", "job" => "总经理"),
@@ -43,7 +43,6 @@
 
 	function create(){
 		$name = $_POST["name"];
-		echo "$name-->"+$name;
 		$id = $_POST["id"];
 		$sex = $_POST["sex"];
 		$job = $_POST["job"];

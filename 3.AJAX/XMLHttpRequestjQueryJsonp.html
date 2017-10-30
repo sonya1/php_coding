@@ -35,13 +35,14 @@ body, input, select, button, h1 {
 <button id="save">保存</button>
 <p id="createResult"></p>
 
-<script src="../jquery.js"></script>
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.js"></script>
 <script>
 $(document).ready(function(){ 
 	$("#search").click(function(){ 
 		$.ajax({ 
 		    type: "GET", 	
-			url: "http://127.0.0.1:80/php_coding/3.AJAX/serverjsonp.php?number=" + $("#keyword").val(),
+		    url: "http://127.0.0.1:80/php_coding/3.AJAX/serverjsonp.php=" + $("#keyword").val(),
+			//url: "http://127.0.0.1:8000/ajaxdemo/serverjsonp.php?number=" + $("#keyword").val(),
 			dataType: "jsonp",
 			jsonp: "callback",
 			success: function(data) {
@@ -60,8 +61,8 @@ $(document).ready(function(){
 	$("#save").click(function(){ 
 		$.ajax({ 
 		    type: "POST", 	
+		    url: "http://127.0.0.1/php_coding/3.AJAX/serverjsonp.php",
 			//url: "http://127.0.0.1:8000/ajaxdemo/serverjsonp.php",
-			url:"http://127.0.0.1:80/php_coding/3.AJAX/serverjsonp.php",
 			data: {
 				name: $("#staffName").val(), 
 				number: $("#staffNumber").val(), 
